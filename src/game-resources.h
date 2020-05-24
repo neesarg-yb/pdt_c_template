@@ -3,5 +3,5 @@
 
 // Declare common resources, shared by game code
 //-----------------------------------------------
-extern PlaydateAPI* g_pd;   // Set right before GameStart
+extern PlaydateAPI* g_pd;   // Set by GameStart
 extern LCDFont* g_font;     // Set by GameStart

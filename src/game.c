@@ -2,8 +2,8 @@
 #include "game-resources.h"
 
 // Common resources
-PlaydateAPI* g_pd = NULL;   // Set right before GameStart
-LCDFont* g_font = NULL;     // Set by GameStart
+PlaydateAPI* g_pd = NULL;
+LCDFont* g_font = NULL;
 
 // Game variables
 #define TEXT_WIDTH 86
