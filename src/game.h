@@ -1,7 +1,8 @@
 #pragma once
 #include <stdio.h>
+#include "pd_api.h"
 
-void GameStart();
+void GameInit(PlaydateAPI* playdate);
 
-void GameUpdate();
-int  GameRender();
+void GameUpdate(void);
+int  GameRender(void);

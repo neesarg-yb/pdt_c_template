@@ -14,6 +14,7 @@ file(
     GLOB_RECURSE
     SOURCE_FILES
     src/*.c
+    src/*.h
 )
 
 # Configure project
