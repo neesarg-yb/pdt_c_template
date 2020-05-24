@@ -1,0 +1,6 @@
+# Playdate executables
+*.pdx
+build/
+
+# CMake cache and stuffs
+Source/
