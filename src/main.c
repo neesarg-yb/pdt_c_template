@@ -1,6 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-
 #include "pd_api.h"
 #include "game.h"
 
@@ -18,6 +15,10 @@ int eventHandler(PlaydateAPI* playdate, PDSystemEvent event, __attribute__ ((unu
 		
 		playdate->display->setRefreshRate(20);
 		playdate->system->setUpdateCallback(update, NULL);
+	}
+	else if( event == kEventTerminate )
+	{
+		GameTerminate();
 	}
 	
 	return 0;

@@ -1,5 +1,6 @@
 #include "game.h"
 #include "game-resources.h"
+#include "dev-window.h"
 
 // Common resources
 PlaydateAPI* g_pd = NULL;
@@ -19,6 +20,15 @@ void GameInit(PlaydateAPI* playdate)
 {
 	g_pd = playdate;
 	g_font = g_pd->graphics->loadFont("/System/Fonts/Asheville-Sans-14-Bold.pft", NULL);
+
+	DevWindowInit();
+}
+
+void GameTerminate(void)
+{
+	DevWindowTerminate();
+
+	// TODO: clear g_font if necessory
 }
 
 // Called each frame, before GameRender
@@ -30,10 +40,22 @@ void GameUpdate(void)
 	{
 		dx = -dx;
 		g_pd->system->logToConsole("DEB-NB: Text Reached to side of the LDC!\n");
+
+		if(dx > 0)
+			DevWindowPrint("DEB-NB: Text Reached to LEFT side of screen!");
+		else
+			DevWindowPrint("DEV-NB: Text reached the RIGHT side!");
 	}
 
 	if ( y < 0 || y > LCD_ROWS - TEXT_HEIGHT )
+	{
 		dy = -dy;
+
+		if(dy < 0)
+			DevWindowPrint("DEB-NB: Text now goes UPWARDS!");
+		else
+			DevWindowPrint("DEB-NB: Gravity pulling DOWN the text!");
+	}
 }
 
 // Called each frame, after GameUpdate
@@ -43,6 +65,8 @@ int GameRender(void)
 	g_pd->graphics->drawText(g_font, NULL, NULL, "Hello World!", strlen("Hello World!"), kASCIIEncoding, x, y, kDrawModeCopy, 0, LCDMakeRect(0,0,0,0));
 
 	g_pd->system->drawFPS(0,0);
+
+	DevWindowRender();
 
     return 1;
 }
