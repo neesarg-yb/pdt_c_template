@@ -34,6 +34,13 @@ void GameTerminate(void)
 // Called each frame, before GameRender
 void GameUpdate(void)
 {
+	DevWindowUpdate();
+	
+	// If in options menu, don't run the game
+	if(g_devWindowState == kDevWindowOptionsMenu)
+		return;
+
+	// Run the game
 	x += dx; y += dy;
 	
 	if ( x < 0 || x > LCD_COLUMNS - TEXT_WIDTH )
@@ -42,9 +49,9 @@ void GameUpdate(void)
 		g_pd->system->logToConsole("DEB-NB: Text Reached to side of the LDC!\n");
 
 		if(dx > 0)
-			DevWindowPrint("DEB-NB: Text Reached to LEFT side of screen!");
+			DevWindowPrint("DEB-NB: Text turned towards RIGHT side of screen!");
 		else
-			DevWindowPrint("DEV-NB: Text reached the RIGHT side!");
+			DevWindowPrint("DEB-NB: Text bounced to the LEFT side!");
 	}
 
 	if ( y < 0 || y > LCD_ROWS - TEXT_HEIGHT )
@@ -65,7 +72,7 @@ int GameRender(void)
 	g_pd->graphics->drawText(g_font, NULL, NULL, "Hello World!", strlen("Hello World!"), kASCIIEncoding, x, y, kDrawModeCopy, 0, LCDMakeRect(0,0,0,0));
 
 	g_pd->system->drawFPS(0,0);
-
+	
 	DevWindowRender();
 
     return 1;
