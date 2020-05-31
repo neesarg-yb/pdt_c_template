@@ -16,14 +16,14 @@ void AppInit(PlaydateAPI* playdate)
 
     // Init systems
     GameInit(playdate);
-    DevWindowInit();
     OptionsMenuInit();
+    DevWindowInit();
 }
 
 void AppTerminate(void)
 {
-    OptionsMenuTerminate();
     DevWindowTerminate();
+    OptionsMenuTerminate();
     GameTerminate();
 }
 
@@ -49,9 +49,14 @@ void AppUpdate(void)
         if(g_isOptionsMenuOpen || g_isStepThroughOn)
             updateGameFrame = false;
         
+        // Or maybe we can Step-through game
+        bool const canStepThrough = g_isStepThroughOn && !g_isOptionsMenuOpen;
+
+        // Buttons to step-through pressed?
         bool rightLeftJustPressed = false;
         bool upDownCurrentlyPressed = false;
-        {   
+        if(canStepThrough)
+        {
             PDButtons pushedButton = 0;
             PDButtons currentButton = 0;
             g_pd->system->getButtonState(&currentButton, &pushedButton, NULL);
@@ -75,7 +80,7 @@ void AppUpdate(void)
             }
         }
         
-        if(g_isStepThroughOn && (rightLeftJustPressed || upDownCurrentlyPressed))
+        if(canStepThrough && (rightLeftJustPressed || upDownCurrentlyPressed))
             updateGameFrame = true;
     }
 

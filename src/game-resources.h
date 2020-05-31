@@ -7,9 +7,8 @@
 //-----------------------------------------------
 extern PlaydateAPI* g_pd;               // Set by AppInit
 extern LCDFont* g_font;                 // Set by AppInit
-extern LCDBitmap* g_devBitmap;          // Set by DevWindowInit
-extern LCDBitmap* g_devMenuBitmap;      // Set by DevWindowInit
-extern DevWindowState g_devWindowState; // Used by dev-window.c
+extern LCDBitmap* g_devWindowBitmap;    // Set by DevWindowInit
+extern LCDBitmap* g_optionsMenuBitmap;  // Set by DevWindowInit
 
 extern bool g_isOptionsMenuOpen;        // Defined by options-menu.c
 extern bool g_isDevWindowActive;        // Defined by dev-window.c
