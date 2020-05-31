@@ -11,7 +11,7 @@ typedef enum DevWindowState
 void DevWindowInit(void);
 void DevWindowTerminate(void);
 
-void DevWindowUpdate(void);
+void DevWindowUpdate(float const deltaSeconds);
 void DevWindowUpdate_OptionsMenu(void);
 void DevWindowUpdate_Console(void);
 

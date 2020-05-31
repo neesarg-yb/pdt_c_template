@@ -1,6 +1,5 @@
 #include "game.h"
 #include "game-resources.h"
-#include "dev-window.h"
 
 // Common resources
 PlaydateAPI* g_pd = NULL;
@@ -12,36 +11,26 @@ LCDFont* g_font = NULL;
 
 int x = (400-TEXT_WIDTH)/2;
 int y = (240-TEXT_HEIGHT)/2;
-int dx = 1;
-int dy = 2;
+int dx = 20;	// pxl per seconds
+int dy = 20;	// pxl per seconds
 
 // Called when Playdate game is initalized
 void GameInit(PlaydateAPI* playdate)
 {
-	g_pd = playdate;
-	g_font = g_pd->graphics->loadFont("/System/Fonts/Asheville-Sans-14-Bold.pft", NULL);
 
-	DevWindowInit();
 }
 
 void GameTerminate(void)
 {
-	DevWindowTerminate();
-
-	// TODO: clear g_font if necessory
+	
 }
 
 // Called each frame, before GameRender
-void GameUpdate(void)
+void GameUpdate(float const deltaSeconds)
 {
-	DevWindowUpdate();
-	
-	// If in options menu, don't run the game
-	if(g_devWindowState == kDevWindowOptionsMenu)
-		return;
-
 	// Run the game
-	x += dx; y += dy;
+	x += dx * deltaSeconds; 
+	y += dy * deltaSeconds;
 	
 	if ( x < 0 || x > LCD_COLUMNS - TEXT_WIDTH )
 	{
@@ -73,7 +62,5 @@ int GameRender(void)
 
 	g_pd->system->drawFPS(0,0);
 	
-	DevWindowRender();
-
     return 1;
 }

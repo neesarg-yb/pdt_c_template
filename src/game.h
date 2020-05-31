@@ -4,5 +4,5 @@
 void GameInit(PlaydateAPI* playdate);
 void GameTerminate(void);
 
-void GameUpdate(void);
+void GameUpdate(float const deltaSeconds);
 int  GameRender(void);
