@@ -1,6 +1,6 @@
 #pragma once
 
-void DevConsoleMessagesPush(char const *msg);
+void DevConsoleMessagesPush(char const *msg, int maxNumMsg);
 void DevConsoleMessagesClearAll(void);
 
 int         GetDevConsoleMessagesCount(void);

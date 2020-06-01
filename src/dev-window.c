@@ -3,7 +3,7 @@
 #include "game-resources.h"
 #include "dev-console-msg.h"
 
-LCDBitmap*  g_devWindowBitmap         = NULL;
+LCDBitmap*  g_devWindowBitmap   = NULL;
 bool        g_isDevWindowActive = false;
 
 void DevWindowInit(void)
@@ -51,6 +51,6 @@ void DevWindowRender(void)
 
 void DevWindowPrint(char const* msg)
 {
-    DevConsoleMessagesPush(msg);
+    DevConsoleMessagesPush(msg, 10);
 }
 

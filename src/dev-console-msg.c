@@ -11,7 +11,7 @@ struct MessageLinkedList
 }; 
 typedef struct MessageLinkedList MessageLinkedList;
 
-void InitalizeMessageLinkedList(MessageLinkedList **ll)
+void InitalizeMessageLinkedListNode(MessageLinkedList **ll)
 {
     MessageLinkedList *newLL = g_pd->system->realloc(NULL, sizeof(MessageLinkedList));
     newLL->m_value = NULL;
@@ -20,31 +20,33 @@ void InitalizeMessageLinkedList(MessageLinkedList **ll)
     *ll = newLL;
 }
 
-void InitalizeMessageLinkedListNode(MessageLinkedList *ll, char const *msg)
-{
-    if(ll == NULL)
-        return;
-
-    // Traverse to the end of linked list
-    MessageLinkedList *currNode;
-    for(currNode = ll; currNode->m_next != NULL; currNode = currNode->m_next) 
-    {}
-
-    // Set value
-    g_pd->system->formatString(&(currNode->m_value), msg);
-
-    // Set next
-    {
-        // Create a new node with valid data
-        MessageLinkedList *newNode = g_pd->system->realloc(NULL, sizeof(MessageLinkedList));
-        newNode->m_value = NULL;
-        newNode->m_next  = NULL;
-
-        currNode->m_next = newNode;
-    }
-}
-
 MessageLinkedList *m_msgLinkedList = NULL;
+
+void DevConsoleMessagesPush(char const *msg, int maxNumMsg)
+{
+    // Traverse to the end of linked list
+    int currMsgIdx;
+    MessageLinkedList **tailNodeRef;
+    for( tailNodeRef  = &m_msgLinkedList, currMsgIdx = 1; 
+        *tailNodeRef != NULL; 
+         tailNodeRef  = &((*tailNodeRef)->m_next), currMsgIdx++ ) 
+    {
+        if(currMsgIdx >= maxNumMsg)
+        {
+            // We need to remove first message in order to make space
+            MessageLinkedList *firstMsgNode = m_msgLinkedList;
+            m_msgLinkedList = m_msgLinkedList->m_next;
+
+            g_pd->system->realloc(firstMsgNode, 0);
+        }
+    }
+
+    // Initalize the tail of linked list
+    InitalizeMessageLinkedListNode(tailNodeRef);    // == currentEndNode->m_next
+
+    // Fill up the m_value
+    g_pd->system->formatString(&((*tailNodeRef)->m_value), msg);
+}
 
 void DevConsoleMessagesClearAll(void)
 {
@@ -58,14 +60,6 @@ void DevConsoleMessagesClearAll(void)
 
         ll = nextNode;
     }
-}
-
-void DevConsoleMessagesPush(char const *msg)
-{
-    if(m_msgLinkedList == NULL)
-        InitalizeMessageLinkedList(&m_msgLinkedList);
-    
-    InitalizeMessageLinkedListNode(m_msgLinkedList, msg);
 }
 
 int GetDevConsoleMessagesCount(void)
