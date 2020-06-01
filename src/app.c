@@ -54,33 +54,24 @@ void AppUpdate(void)
 
         // Buttons to step-through pressed?
         bool rightLeftJustPressed = false;
-        bool upDownCurrentlyPressed = false;
         if(canStepThrough)
         {
-            PDButtons pushedButton = 0;
             PDButtons currentButton = 0;
-            g_pd->system->getButtonState(&currentButton, &pushedButton, NULL);
+            g_pd->system->getButtonState(&currentButton, NULL, NULL);
 
             // Move forward
-            if((pushedButton & kButtonRight) != 0)
+            if((currentButton & kButtonRight) != 0)
                 rightLeftJustPressed = true;
-            else if((currentButton & kButtonUp) != 0)
-                upDownCurrentlyPressed = true;
             
             // Move backwords
-            if((pushedButton & kButtonLeft) != 0)
+            if((currentButton & kButtonLeft) != 0)
             {
                 deltaSeconds *= -1.f;
                 rightLeftJustPressed = true;
-            }            
-            else if((currentButton & kButtonDown) != 0)
-            {
-                deltaSeconds *= -1.f;
-                upDownCurrentlyPressed = true;
             }
         }
         
-        if(canStepThrough && (rightLeftJustPressed || upDownCurrentlyPressed))
+        if(canStepThrough && rightLeftJustPressed)
             updateGameFrame = true;
     }
 
