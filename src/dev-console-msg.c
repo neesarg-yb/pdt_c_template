@@ -13,6 +13,9 @@ typedef struct MessageLinkedList MessageLinkedList;
 
 void InitalizeMessageLinkedListNode(MessageLinkedList **ll)
 {
+    if(*ll != NULL)
+        g_pd->system->error("InitalizeMessageLinkedListNode: passed ll is NOT NULL!");
+
     MessageLinkedList *newLL = g_pd->system->realloc(NULL, sizeof(MessageLinkedList));
     newLL->m_value = NULL;
     newLL->m_next  = NULL;
@@ -24,6 +27,9 @@ MessageLinkedList *m_msgLinkedList = NULL;
 
 void DevConsoleMessagesPush(char const *msg, int maxNumMsg)
 {
+    if(maxNumMsg <= 0)
+        g_pd->system->error("DevConsoleMessagesPush: can not pass maxNumMsg <= 0");
+
     // Traverse to the end of linked list
     int currMsgIdx;
     MessageLinkedList **tailNodeRef;
@@ -37,6 +43,7 @@ void DevConsoleMessagesPush(char const *msg, int maxNumMsg)
             MessageLinkedList *firstMsgNode = m_msgLinkedList;
             m_msgLinkedList = m_msgLinkedList->m_next;
 
+            g_pd->system->realloc(firstMsgNode->m_value, 0);
             g_pd->system->realloc(firstMsgNode, 0);
         }
     }
