@@ -11,8 +11,8 @@ LCDFont* g_font = NULL;
 
 int x = (400-TEXT_WIDTH)/2;
 int y = (240-TEXT_HEIGHT)/2;
-int dx = 20;	// pxl per seconds
-int dy = 20;	// pxl per seconds
+int dx = 40;	// pxl per seconds
+int dy = 40;	// pxl per seconds
 
 // Called when Playdate game is initalized
 void GameInit(PlaydateAPI* playdate)

@@ -81,14 +81,6 @@ void OptionsMenuRender(void)
     // Clear old bitmap
     g_pd->graphics->clearBitmap(g_optionsMenuBitmap, kColorBlack);
 
-    LCDRect clipRect;
-    {
-        clipRect.left = 0;
-        clipRect.right = 0;
-        clipRect.top = 0;
-        clipRect.bottom = 0;
-    }
-
     // Draw new stuffs to the bitmap
     for(int i = 0; i < NUM_OPTIONS; i++)
     {
@@ -100,19 +92,19 @@ void OptionsMenuRender(void)
             // Draw selection box
             int const boxWidth  = optionMenuWidth - (x*2);
             int const boxHeight = 18;
-            g_pd->graphics->fillRect(g_optionsMenuBitmap, NULL, x, y + 1, boxWidth, boxHeight, kColorWhite, clipRect);
+            g_pd->graphics->fillRect(g_optionsMenuBitmap, NULL, x, y + 1, boxWidth, boxHeight, kColorWhite, LCDMakeRect(0, 0, 0, 0));
 
             // Draw text in black color
-            g_pd->graphics->drawText(g_font, g_optionsMenuBitmap, NULL, menuOptionsStr[i], strlen(menuOptionsStr[i]), kASCIIEncoding, x, y, kDrawModeFillBlack, 0, clipRect);
+            g_pd->graphics->drawText(g_font, g_optionsMenuBitmap, NULL, menuOptionsStr[i], strlen(menuOptionsStr[i]), kASCIIEncoding, x, y, kDrawModeFillBlack, 0, LCDMakeRect(0, 0, 0, 0));
         }
         else
         {
             // Draw menu text in white color
-            g_pd->graphics->drawText(g_font, g_optionsMenuBitmap, NULL, menuOptionsStr[i], strlen(menuOptionsStr[i]), kASCIIEncoding, x, y, kDrawModeFillWhite, 0, clipRect);
+            g_pd->graphics->drawText(g_font, g_optionsMenuBitmap, NULL, menuOptionsStr[i], strlen(menuOptionsStr[i]), kASCIIEncoding, x, y, kDrawModeFillWhite, 0, LCDMakeRect(0, 0, 0, 0));
         }
         
     }
 
     // Render the bitmap
-    g_pd->graphics->drawBitmap(g_optionsMenuBitmap, NULL, NULL, LCD_COLUMNS * 0.25f, LCD_ROWS * 0.25f, kDrawModeCopy, kBitmapUnflipped, clipRect);
+    g_pd->graphics->drawBitmap(g_optionsMenuBitmap, NULL, NULL, LCD_COLUMNS * 0.25f, LCD_ROWS * 0.25f, kDrawModeCopy, kBitmapUnflipped, LCDMakeRect(0, 0, 0, 0));
 }
