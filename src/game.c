@@ -1,5 +1,6 @@
 #include "game.h"
 #include "game-resources.h"
+#include "math-utils/vector.h"
 #include "game-components/tiles.h"
 #include "game-components/vortex.h"
 #include "game-components/platform.h"
@@ -53,9 +54,15 @@ int GameRender(void)
 
 void GameRenderPrompt(void)
 {
-	int const x = 25;
-	int const y = (int)(LCD_ROWS * 0.83f);
+	IntVec2 const promptPos = 
+	{ 
+		5, 
+		(int)(LCD_ROWS * 0.9f) 
+	};
 
-	char const *promptMsg = "Press A to start..";
-	g_pd->graphics->drawText(g_font, NULL, NULL, promptMsg, strlen(promptMsg), kASCIIEncoding, x, y, kDrawModeCopy, 0, LCDMakeRect(0,0,0,0));
+	if(g_pd->system->isCrankDocked())
+	{
+		char const *promptMsg = ">> Undock crank!";
+		g_pd->graphics->drawText(g_font, NULL, NULL, promptMsg, strlen(promptMsg), kASCIIEncoding, promptPos.x, promptPos.y, kDrawModeCopy, 0, LCDMakeRect(0,0,0,0));
+	}
 }
