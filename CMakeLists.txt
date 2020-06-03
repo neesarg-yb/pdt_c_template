@@ -5,8 +5,8 @@ set(CMAKE_C_STANDARD 11)
 set(SDK $ENV{PLAYDATE_SDK})
 
 # Game Name Customization
-set(PLAYDATE_GAME_NAME c_template)
-set(PLAYDATE_GAME_DEVICE c_template_DEVICE)
+set(PLAYDATE_GAME_NAME c_game)
+set(PLAYDATE_GAME_DEVICE c_game_DEVICE)
 
 # Source files
 #TODO include a txt from src that keeps an updated list of files to compile
