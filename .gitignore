@@ -3,4 +3,9 @@
 build/
 
 # CMake cache and stuffs
-Source/
+Source/*
+
+# When setting up the VS Code project the first time..
+# we do need an empty directory Source. Otherwise the build command fails..
+# as of PlaydateSDK-0.10.1
+!Source/placeholder.txt
