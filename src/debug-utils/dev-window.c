@@ -1,7 +1,7 @@
 #include "dev-window.h"
 #include "stdbool.h"
-#include "game-resources.h"
 #include "dev-console-msg.h"
+#include "../game-resources.h"
 
 LCDBitmap*  g_devWindowBitmap   = NULL;
 bool        g_isDevWindowActive = false;

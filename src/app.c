@@ -1,8 +1,8 @@
 #include "app.h"
 #include "game.h"
 #include "game-resources.h"
-#include "dev-window.h"
 #include "options-menu.h"
+#include "debug-utils/dev-window.h"
 
 unsigned int g_currentTimeMs = 0U;
 bool g_isStepThroughOn = false;

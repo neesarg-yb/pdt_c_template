@@ -1,5 +1,5 @@
 #include "dev-console-msg.h"
-#include "game-resources.h"
+#include "../game-resources.h"
 
 struct MessageLinkedList
 {

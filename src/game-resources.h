@@ -1,7 +1,7 @@
 #pragma once
 #include "stdbool.h"
 #include "pd_api.h"
-#include "dev-window.h"
+#include "debug-utils/dev-window.h"
 
 // Declare common resources, shared by game code
 //-----------------------------------------------
