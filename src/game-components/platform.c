@@ -1,8 +1,9 @@
 #include "platform.h"
+#include <math.h>
 #include "../game-resources.h"
 
 IntVec2 m_platformPos;
-int m_platformAngle = 100;  // Degrees
+int m_platformAngle = 0;  // Degrees
 
 int const m_platformRingwidth = 230;
 int const m_platformRingthickness = 1;
@@ -42,6 +43,22 @@ void RenderPlatform(void)
     g_pd->graphics->drawEllipse(NULL, NULL,
         m_platformPos.x, m_platformPos.y,
         m_platformRingwidth, m_platformRingwidth, m_platformThickness,
-        m_platformAngle, m_platformAngle + m_platformLengthDegrees, 
+        m_platformAngle - (m_platformLengthDegrees * 0.5f), m_platformAngle + (m_platformLengthDegrees * 0.5f), 
         kColorBlack, LCDMakeRect(0,0,0,0));
+}
+
+Vec2 GetDockPosOnPlatform(void)
+{
+    Vec2 dockPos = { 0.f, 0.f };
+    {
+        float const dockAngleDeg = m_platformAngle;
+        float const platformAngleRad = dockAngleDeg * M_PI / 180.f;
+        dockPos.x = (m_platformRingwidth * 0.45f) * cos(platformAngleRad - M_PI_2);
+        dockPos.y = (m_platformRingwidth * 0.45f) * sin(platformAngleRad - M_PI_2);
+
+        dockPos.x += screenCenter.x;
+        dockPos.y += screenCenter.y;
+    }   
+
+    return dockPos;
 }

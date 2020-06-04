@@ -65,4 +65,9 @@ void GameRenderPrompt(void)
 		char const *promptMsg = ">> Undock crank!";
 		g_pd->graphics->drawText(g_font, NULL, NULL, promptMsg, strlen(promptMsg), kASCIIEncoding, promptPos.x, promptPos.y, kDrawModeCopy, 0, LCDMakeRect(0,0,0,0));
 	}
+	else if(!IsProjectileFired())
+	{
+		char const *promptMsg = ">> A to Shoot!";
+		g_pd->graphics->drawText(g_font, NULL, NULL, promptMsg, strlen(promptMsg), kASCIIEncoding, promptPos.x, promptPos.y, kDrawModeCopy, 0, LCDMakeRect(0,0,0,0));
+	}
 }
