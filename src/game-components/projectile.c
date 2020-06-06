@@ -39,8 +39,8 @@ void UpdateProjectile(float const deltaSeconds)
         // Update Velocity
 
         // Update Position
-        Vec2 const posDisp = Vec2Scale(m_projectileVel, deltaSeconds);
-        m_projectilePos = Vec2Sum(m_projectilePos, posDisp);
+        Vec2 const posDisp = ScaleVec2(m_projectileVel, deltaSeconds);
+        m_projectilePos = SumVec2(m_projectilePos, posDisp);
     }
 }
 
@@ -54,10 +54,10 @@ void RenderProjectile(void)
 
 void FireProjectile(void)
 {
-    Vec2 const projToScreenCenter = Vec2Sub( ToVec2(screenCenter), m_projectilePos);
-    Vec2 const velocityDir = Vec2Normalize(projToScreenCenter);
+    Vec2 const projToScreenCenter = SubVec2( Vec2FromIntVec2(screenCenter), m_projectilePos);
+    Vec2 const velocityDir = NormalizeVec2(projToScreenCenter);
 
-    m_projectileVel = Vec2Scale(velocityDir, 80.f);
+    m_projectileVel = ScaleVec2(velocityDir, 80.f);
     m_projectileFired = true;
 }
 

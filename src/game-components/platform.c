@@ -1,6 +1,7 @@
 #include "platform.h"
 #include <math.h>
 #include "../game-resources.h"
+#include "../math-utils/vector.h"
 
 IntVec2 m_platformPos;
 int m_platformAngle = 0;  // Degrees
@@ -13,8 +14,7 @@ int const m_platformLengthDegrees = 30;
 void SpawnPlatform(void)
 {
     int const halfWidth = m_platformRingwidth * 0.5f;
-    m_platformPos.x = screenCenter.x - halfWidth;
-    m_platformPos.y = screenCenter.y - halfWidth;
+    m_platformPos = ModCompIntVec2(screenCenter, -halfWidth);
 }
 
 void DestroyPlatform(void)
@@ -56,7 +56,7 @@ Vec2 GetDockPosOnPlatform(void)
         dockPos.x = (m_platformRingwidth * 0.45f) * cos(platformAngleRad - M_PI_2);
         dockPos.y = (m_platformRingwidth * 0.45f) * sin(platformAngleRad - M_PI_2);
 
-        dockPos = Vec2Sum(dockPos, ToVec2(screenCenter));
+        dockPos = SumVec2(dockPos, Vec2FromIntVec2(screenCenter));
     }   
 
     return dockPos;
