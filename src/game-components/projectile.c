@@ -1,5 +1,4 @@
 #include "projectile.h"
-#include <math.h>
 #include "platform.h"
 #include "../math-utils/vector.h"
 #include "../game-resources.h"
@@ -40,8 +39,8 @@ void UpdateProjectile(float const deltaSeconds)
         // Update Velocity
 
         // Update Position
-        m_projectilePos.x += m_projectileVel.x * deltaSeconds;
-        m_projectilePos.y += m_projectileVel.y * deltaSeconds;
+        Vec2 const posDisp = Vec2Scale(m_projectileVel, deltaSeconds);
+        m_projectilePos = Vec2Sum(m_projectilePos, posDisp);
     }
 }
 
@@ -55,18 +54,10 @@ void RenderProjectile(void)
 
 void FireProjectile(void)
 {
-    Vec2 velocityDir = { 0, 0 };
-    velocityDir.x = screenCenter.x - m_projectilePos.x;
-    velocityDir.y = screenCenter.y - m_projectilePos.y;
+    Vec2 const projToScreenCenter = Vec2Sub( ToVec2(screenCenter), m_projectilePos);
+    Vec2 const velocityDir = Vec2Normalize(projToScreenCenter);
 
-    float const vecLength = sqrtf( (velocityDir.x * velocityDir.x) + (velocityDir.y * velocityDir.y) );
-    velocityDir.x /= vecLength;
-    velocityDir.y /= vecLength;
-
-    m_projectileVel = velocityDir;
-    m_projectileVel.x *= 80.f;
-    m_projectileVel.y *= 80.f;
-
+    m_projectileVel = Vec2Scale(velocityDir, 80.f);
     m_projectileFired = true;
 }
 

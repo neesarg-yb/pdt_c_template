@@ -56,8 +56,7 @@ Vec2 GetDockPosOnPlatform(void)
         dockPos.x = (m_platformRingwidth * 0.45f) * cos(platformAngleRad - M_PI_2);
         dockPos.y = (m_platformRingwidth * 0.45f) * sin(platformAngleRad - M_PI_2);
 
-        dockPos.x += screenCenter.x;
-        dockPos.y += screenCenter.y;
+        dockPos = Vec2Sum(dockPos, ToVec2(screenCenter));
     }   
 
     return dockPos;
