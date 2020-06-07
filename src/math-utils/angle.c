@@ -25,7 +25,7 @@ Angle AddAngles(Angle const a, Angle const b)
 {
     // Complex num multiplication adds two angles
     float const multReal = ((a.r * b.r) - (a.i * b.i));
-	float const multImg  = ((a.r * b.i) + (a.i * b.r));
+    float const multImg  = ((a.r * b.i) + (a.i * b.r));
 
     Angle sum;
     sum.r = multReal;
@@ -43,8 +43,8 @@ Angle AddDegreesToAngle(Angle const in, float const deltaDeg)
 Angle DeltaAngle(Angle const a/*from*/, Angle const b/*to*/)
 {
     float numeratorR  = ((a.r * b.r) + (a.i * b.i));
-	float numeratorI  = ((a.i * b.r) - (a.r * b.i));
-	float denominator = ((b.r * b.r) + (b.i * b.i));
+    float numeratorI  = ((a.i * b.r) - (a.r * b.i));
+    float denominator = ((b.r * b.r) + (b.i * b.i));
 
     if(denominator == 0.f)
         g_pd->system->error("Error in class Angle: Divide by ZERO!");
