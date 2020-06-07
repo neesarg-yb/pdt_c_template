@@ -59,9 +59,16 @@ void FireProjectile(void)
 
     m_projectileVel = ScaleVec2(velocityDir, 80.f);
     m_projectileFired = true;
+
+    DevWindowPrint("Projectile fired!");
 }
 
 bool IsProjectileFired(void)
 {
     return m_projectileFired;
+}
+
+Vec2 GetProjectilePos(void)
+{
+    return m_projectilePos;
 }

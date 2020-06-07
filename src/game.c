@@ -4,6 +4,7 @@
 #include "game-components/tiles.h"
 #include "game-components/vortex.h"
 #include "game-components/platform.h"
+#include "game-components/collision.h"
 #include "game-components/projectile.h"
 
 // Common resources
@@ -34,6 +35,8 @@ void GameUpdate(float const deltaSeconds)
 	UpdateProjectile(deltaSeconds);
 	UpdateTiles(deltaSeconds);
 	UpdateVortex(deltaSeconds);
+
+	ProjectileVsPlatformCollision(deltaSeconds);
 }
 
 // Called each frame, after GameUpdate

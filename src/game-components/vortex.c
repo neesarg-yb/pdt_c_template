@@ -47,3 +47,8 @@ void RenderVortex(void)
         m_vortexBoxWidth + m_boxWidthModifier, m_vortexBoxHeight + m_boxHeightModifier, 
         0, 0, kColorBlack, LCDMakeRect(0,0,0,0));
 }
+
+Vec2 GetVortexCenterPos(void)
+{
+    return Vec2FromIntVec2(screenCenter);
+}
