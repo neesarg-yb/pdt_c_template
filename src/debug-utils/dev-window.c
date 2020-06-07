@@ -4,7 +4,7 @@
 #include "../game-resources.h"
 
 LCDBitmap*  g_devWindowBitmap   = NULL;
-bool        g_isDevWindowActive = false;
+bool        g_isDevWindowActive = true;
 
 void DevWindowInit(void)
 {

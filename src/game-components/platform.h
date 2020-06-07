@@ -1,4 +1,5 @@
 #pragma once
+#include "../math-utils/angle.h"
 #include "../math-utils/vector.h"
 
 void SpawnPlatform(void);

@@ -3,9 +3,10 @@
 #include "vortex.h"
 #include "../game-resources.h"
 #include "../math-utils/vector.h"
+#include "../math-utils/angle.h"
 
 IntVec2 m_ringBoxBottomLeft;
-int m_platformAngle = 0;  // Degrees
+Angle m_platformAngle;
 
 int const m_platformRingRadius = 230;
 int const m_platformRingThickness = 1;
@@ -16,11 +17,12 @@ void SpawnPlatform(void)
 {
     int const halfRadius = m_platformRingRadius * 0.5f;
     m_ringBoxBottomLeft = ModCompIntVec2(screenCenter, -halfRadius);
+    m_platformAngle = MakeAngleFromDeg(0.f);
 }
 
 void DestroyPlatform(void)
 {
-
+    
 }
 
 void UpdatePlatform(float const deltaSeconds)
@@ -28,7 +30,7 @@ void UpdatePlatform(float const deltaSeconds)
     if(!g_pd->system->isCrankDocked())
     {
         float deltaAngle = g_pd->system->getCrankChange();
-        m_platformAngle += (deltaAngle * 0.8f);
+        m_platformAngle = AddDegreesToAngle(m_platformAngle, deltaAngle * 0.8f);
     }
 }
 
@@ -41,11 +43,21 @@ void RenderPlatform(void)
         0, 0, kColorBlack, LCDMakeRect(0,0,0,0));
 
     // Platform itself
+    Angle const startAngle  = AddDegreesToAngle(m_platformAngle, -(m_platformLengthDegrees * 0.5f));
+    Angle const endAngle    = AddDegreesToAngle(m_platformAngle,   m_platformLengthDegrees * 0.5f);
     g_pd->graphics->drawEllipse(NULL, NULL,
         m_ringBoxBottomLeft.x, m_ringBoxBottomLeft.y,
         m_platformRingRadius, m_platformRingRadius, m_platformThickness,
-        m_platformAngle - (m_platformLengthDegrees * 0.5f), m_platformAngle + (m_platformLengthDegrees * 0.5f), 
+        DegreesFromAngle(startAngle), DegreesFromAngle(endAngle), 
         kColorBlack, LCDMakeRect(0,0,0,0));
+
+    // Debug
+    char *msgPlatRot = NULL;
+    {
+        g_pd->system->formatString(&msgPlatRot, "PlatRotation = %.2f deg", GetPlatformRotationDegrees());
+        DevWindowPrint(msgPlatRot);
+        g_pd->system->realloc(msgPlatRot, 0);
+    }
 }
 
 Vec2 GetDockPosOnPlatform(void)
@@ -64,7 +76,7 @@ Vec2 GetPlatformCenterPosition(void)
 {
     Vec2 platCenterPos = { 0.f, 0.f };
     {
-        float const platformAngleRad = m_platformAngle * M_PI / 180.f;
+        float const platformAngleRad = RadiansFromAngle(m_platformAngle);
         platCenterPos.x = (m_platformRingRadius * 0.5f) * cos(platformAngleRad - M_PI_2);
         platCenterPos.y = (m_platformRingRadius * 0.5f) * sin(platformAngleRad - M_PI_2);
 
@@ -76,7 +88,7 @@ Vec2 GetPlatformCenterPosition(void)
 
 float GetPlatformRotationDegrees(void)
 {
-    return m_platformAngle;
+    return DegreesFromAngle(m_platformAngle);
 }
 
 float GetPlatformLengthDegrees(void)

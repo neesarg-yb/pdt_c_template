@@ -9,7 +9,8 @@
 			"cstdlib": "cpp",
 			"typeinfo": "cpp",
 			"cmath": "c",
-			"*.tcc": "c"
+			"*.tcc": "c",
+			"complex": "cpp"
 		}
 	}
 }

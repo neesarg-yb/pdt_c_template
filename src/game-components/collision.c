@@ -3,6 +3,7 @@
 #include "vortex.h"
 #include "platform.h"
 #include "projectile.h"
+#include "../game-resources.h"
 #include "../math-utils/vector.h"
 
 void PushProjectileAwayFromPlatform(void)
@@ -23,6 +24,12 @@ void ProjectileVsPlatformCollision(float const deltaSeconds)
     Vec2  projectilePos         = GetProjectilePos();
     float projDistFromCenter    = LengthVec2( SubVec2(projectilePos, vortexCenterPos) );
     float projRotationDegrees   = CalcRotationDegreesFromCenter(projectilePos, vortexCenterPos);
+    {
+        char *msgProjRot = NULL;
+        g_pd->system->formatString(&msgProjRot, "ProjRotation = %.2f deg", projRotationDegrees);
+        DevWindowPrint(msgProjRot);
+        g_pd->system->realloc(msgProjRot, 0);
+    }
 
     // Get platform location data
     Vec2  platformPos                = GetPlatformCenterPosition();
@@ -34,7 +41,7 @@ void ProjectileVsPlatformCollision(float const deltaSeconds)
     // Is the projectile at same dist from center as the platform?
     bool isOverlappingPlatformCircle = false;
     {
-        // TODO: Calculate
+        
     }
 
     if(isOverlappingPlatformCircle)
