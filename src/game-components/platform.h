@@ -11,6 +11,8 @@ void RenderPlatform(void);
 Vec2 GetDockPosOnPlatform(void);
 
 Vec2  GetPlatformCenterPosition(void);
+Angle GetPlatformRotationAngle(void);
 float GetPlatformRotationDegrees(void);
 float GetPlatformLengthDegrees(void);
 float GetPlatformThickness(void);
+float GetPlatformRingRadius(void);

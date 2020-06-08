@@ -36,7 +36,10 @@ void GameUpdate(float const deltaSeconds)
 	UpdateTiles(deltaSeconds);
 	UpdateVortex(deltaSeconds);
 
-	ProjectileVsPlatformCollision(deltaSeconds);
+	if( IsProjectileFired() )
+	{
+		ProjectileVsPlatformCollision(deltaSeconds);
+	}
 }
 
 // Called each frame, after GameUpdate

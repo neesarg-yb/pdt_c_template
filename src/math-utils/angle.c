@@ -4,9 +4,14 @@
 
 Angle MakeAngleFromDeg(float const angleDeg)
 {
-    Angle a; 
-    a.r = CosDegrees(angleDeg);
-    a.i = SinDegrees(angleDeg);
+    return MakeAngleFromRad( RadiansFromDegree(angleDeg) );
+}
+
+Angle MakeAngleFromRad(float const angleRad)
+{
+    Angle a;
+    a.r = cosf(angleRad);
+    a.i = sinf(angleRad);
 
     return a;
 }
@@ -31,7 +36,7 @@ Angle AddAngles(Angle const a, Angle const b)
     sum.r = multReal;
     sum.i = multImg;
 
-	return sum;
+    return sum;
 }
 
 Angle AddDegreesToAngle(Angle const in, float const deltaDeg)
@@ -53,7 +58,7 @@ Angle DeltaAngle(Angle const a/*from*/, Angle const b/*to*/)
     sub.r = numeratorR/denominator;
     sub.i = numeratorI/denominator;
 
-	return sub;
+    return sub;
 }
 
 bool IsGreaterThanAngle(Angle const lhs, Angle const rhs)

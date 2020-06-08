@@ -3,9 +3,10 @@
 #include "../math-utils/vector.h"
 #include "../game-resources.h"
 
-Vec2 m_projectilePos = { 0, 0 };
-Vec2 m_projectileVel = { 0, 0 };
-bool m_projectileFired = false;
+Vec2  m_projectilePos = { 0, 0 };
+Vec2  m_projectileVel = { 0, 0 };
+bool  m_projectileFired = false;
+float m_projectileRadius = 10.f;
 
 void SpawnProjectile(void)
 {
@@ -46,9 +47,11 @@ void UpdateProjectile(float const deltaSeconds)
 
 void RenderProjectile(void)
 {
+    float const halfRadius = m_projectileRadius * 0.5f;
+
     g_pd->graphics->fillEllipse(NULL, NULL,
-        m_projectilePos.x - 5, m_projectilePos.y - 5,
-        10, 10,
+        m_projectilePos.x - halfRadius, m_projectilePos.y - halfRadius,
+        m_projectileRadius, m_projectileRadius,
         0, 0, kColorXOR, LCDMakeRect(0,0,0,0) );
 }
 
@@ -71,4 +74,14 @@ bool IsProjectileFired(void)
 Vec2 GetProjectilePos(void)
 {
     return m_projectilePos;
+}
+
+float GetProjectileRadius(void)
+{
+    return m_projectileRadius;
+}
+
+void SetProjectileVelocityDir(Vec2 const velDir)
+{
+    m_projectileVel = ScaleVec2(velDir, LengthVec2(m_projectileVel));
 }

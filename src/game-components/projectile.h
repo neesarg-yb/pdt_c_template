@@ -11,4 +11,7 @@ void RenderProjectile(void);
 void FireProjectile(void);
 bool IsProjectileFired(void);
 
-Vec2 GetProjectilePos(void);
+Vec2  GetProjectilePos(void);
+float GetProjectileRadius(void);
+
+void  SetProjectileVelocityDir(Vec2 const velDir);
